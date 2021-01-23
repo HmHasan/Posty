@@ -15,22 +15,22 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
+                <li class="nav-item {{ request()->is('/') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ url('/') }}">Home</a>
                 </li>
                 @auth
-                <li class="nav-item">
+                <li class="nav-item {{ request()->is('dashboard') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
                 </li>
                 @endauth
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Post</a>
+                <li class="nav-item {{ request()->is('post') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('post') }}">Post</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 @auth
                 <li class="nav-item">
-                    <a class="nav-link" href="#">{{ auth()->user()->name }}</a>
+                    <a class="nav-link text-primary" href="#">{{ auth()->user()->name }}</a>
                 </li>
                 <li class="nav-item">
                     <form action="{{ 'logout' }}" method="POST">
@@ -40,10 +40,10 @@
                 </li>
                 @endauth
                 @guest
-                <li class="nav-item">
+                <li class="nav-item {{ request()->is('login') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('login') }}">Login</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ request()->is('register') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('register') }}">Register</a>
                 </li>
                 @endguest
